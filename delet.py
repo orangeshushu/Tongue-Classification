@@ -3,8 +3,9 @@ import sys
 import os.path
 import shutil
 
-def fileDir():
-    path = '/Users/xiejiacheng/Documents/iTongue/itongue/temp'
+def fileDir(i):
+
+    path ='/Users/xiejiacheng/coding/alldata_cv/train/'
     print(path)
 
     if os.path.isdir(path):
@@ -22,11 +23,12 @@ def suffix(file, *suffixName):
 
 
 def deleteFile():
-    targetDir = fileDir()
-    for file in os.listdir(targetDir):
-        targetFile = os.path.join(targetDir, file)
-        if suffix(file, '.ppm'):
-            os.remove(targetFile)
+    for j in range(9):
+        targetDir = fileDir(j)
+        for file in os.listdir(targetDir):
+            targetFile = os.path.join(targetDir, file)
+            if suffix(file, '.DS_Store'):
+                os.remove(targetFile)
 
 
 if __name__ == '__main__':

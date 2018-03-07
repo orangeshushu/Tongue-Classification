@@ -13,19 +13,19 @@ EPOCH = 100               # train the training data n times, to save time, we ju
 BATCH_SIZE = 20
 LR = 0.001              # learning rate
 
-train_data = torchvision.datasets.ImageFolder('/Users/xiejiacheng/coding/alldata/train',
+train_data = torchvision.datasets.ImageFolder('/Users/xiejiacheng/coding/Image_augmentation/train',
                                               transform=transforms.Compose([
-                                                transforms.Scale(256),
-                                                transforms.CenterCrop(224),
+                                                # transforms.Scale(256),
+                                                # transforms.CenterCrop(224),
                                                 transforms.ToTensor()]))
 print(len(train_data))
 train_loader = torch.utils.data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
 print(len(train_loader))
 
-test_data = torchvision.datasets.ImageFolder('/Users/xiejiacheng/coding/alldata/test',
+test_data = torchvision.datasets.ImageFolder('/Users/xiejiacheng/coding/Image_augmentation/val',
                                              transform=transforms.Compose([
-                                                transforms.Scale(256),
-                                                transforms.CenterCrop(224),
+                                                # transforms.Scale(256),
+                                                # transforms.CenterCrop(224),
                                                 transforms.ToTensor()]))
 print(len(test_data))
 test_loader = torch.utils.data.DataLoader(dataset=test_data, batch_size=BATCH_SIZE, shuffle=True)
