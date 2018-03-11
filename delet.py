@@ -5,7 +5,7 @@ import shutil
 
 def fileDir(i):
 
-    path ='/Users/xiejiacheng/coding/alldata_cv/train/'
+    path ='/Users/xiejiacheng/coding/alldata_cut/'
     print(path)
 
     if os.path.isdir(path):

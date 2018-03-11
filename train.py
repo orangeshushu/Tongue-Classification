@@ -5,7 +5,7 @@ import torch.utils.data as Data
 import torchvision
 #import matplotlib.pyplot as plt
 from torchvision import transforms, utils
-
+from write import write_and_print as wnp
 
 # torch.manual_seed(1)    # reproducible
 # Hyper Parameters
@@ -13,23 +13,25 @@ EPOCH = 100               # train the training data n times, to save time, we ju
 BATCH_SIZE = 20
 LR = 0.001              # learning rate
 
-train_data = torchvision.datasets.ImageFolder('/Users/xiejiacheng/coding/Image_augmentation/train',
+train_data = torchvision.datasets.ImageFolder('/home/dlg/JL/jiacheng/alldata_cut/train',
                                               transform=transforms.Compose([
-                                                # transforms.Scale(256),
-                                                # transforms.CenterCrop(224),
+                                                transforms.Scale(256),
+                                                transforms.CenterCrop(224),
                                                 transforms.ToTensor()]))
 print(len(train_data))
 train_loader = torch.utils.data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
 print(len(train_loader))
 
-test_data = torchvision.datasets.ImageFolder('/Users/xiejiacheng/coding/Image_augmentation/val',
+test_data = torchvision.datasets.ImageFolder('/home/dlg/JL/jiacheng/alldata_cut/val',
                                              transform=transforms.Compose([
-                                                # transforms.Scale(256),
-                                                # transforms.CenterCrop(224),
+                                                transforms.Scale(256),
+                                                transforms.CenterCrop(224),
                                                 transforms.ToTensor()]))
 print(len(test_data))
 test_loader = torch.utils.data.DataLoader(dataset=test_data, batch_size=BATCH_SIZE, shuffle=True)
 print(len(test_loader))
+
+log_fp = open('{name}/result.csv'.format(name='log'), 'w')
 
 class Net(torch.nn.Module):
     def __init__(self):
@@ -96,7 +98,11 @@ for epoch in range(EPOCH):
         pred = torch.max(out, 1)[1]
         num_correct = (pred == batch_y).sum()
         eval_acc += num_correct.data[0]
+
     print('Test Loss: {:.6f}, Acc: {:.6f}'.format(eval_loss / (len(
         test_data)), eval_acc / (len(test_data))))
+
+    log_fp.write(str(epoch) + '\t' + '{:4f}'.format(train_loss / (len(train_data))) + '\t' + '{:.4f}'.format(
+        train_acc / len(train_data)) + '\t' + '{:4f}'.format(eval_loss / len(test_data)) + '\t' + '{:4f}'.format(eval_acc / (len(test_data))))
 
 torch.save(model, 'net0201.pkl')
