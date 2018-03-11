@@ -7,6 +7,7 @@ path = '/Users/xiejiacheng/coding/result.csv'
 train_loss = []
 vailf_loss = []
 x = []
+
 with open(path, 'r') as file:
     for index, content in enumerate(file.readlines()):
         # print(index, co[]
